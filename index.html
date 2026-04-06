@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="public, max-age=31536000">
+    <title>Solar-Solutions India | Premium Renewable Energy</title>
+    
+    <link rel="preload" as="image" href="https://i.ibb.co/3Jqv3xW/1000284375.webp">
+    <link rel="preload" as="image" href="https://i.ibb.co/sp5688mL/1000284389.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'light-bg': '#F8F9FA',       
+                        'light-section': '#FFFFFF',     
+                        'dark-text': '#1E293B',
+                        'muted-text': '#64748B',
+                        'border-light': '#E2E8F0',
+                        'light-card': '#FFFFFF',
+                        'neon-pink': '#f72585',    
+                        'indigo-bloom': '#7209b7',
+                        'vivid-royal': '#3a0ca3',
+                        'electric-sapphire': '#4361ee', 
+                        'sky-aqua': '#4cc9f0',     
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+
+    <style>
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        
+        body {
+            background-color: #F8F9FA; 
+            color: #1E293B; 
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stack-card {
+            position: sticky;
+            top: calc(15vh + (var(--index) * 15px));
+            transform-origin: top center;
+            will-change: transform, filter;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.08); 
+        }
+
+        @keyframes skeleton-loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .skeleton-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+            animation: skeleton-loading 1.2s infinite linear;
+            z-index: 1;
+        }
+
+        .shiny-text {
+            display: inline-block;
+            cursor: default;
+            font-weight: 900;
+        }
+
+        .btn-shiny {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-shiny::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            transition: all 0.6s ease;
+        }
+        .btn-shiny:hover::before { left: 150%; }
+
+        #side-menu {
+            transition: transform 0.4s ease, border-radius 0.4s ease;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+            box-shadow: 15px 0 50px rgba(0,0,0,0.1);
+            border-top-right-radius: 2.5rem;
+            border-bottom-right-radius: 2.5rem;
+            border-right: 1px solid #E2E8F0;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1rem 1.25rem;
+            border-radius: 1.5rem;
+            font-weight: 700;
+            color: #64748B;
+            transition: all 0.3s ease;
+            margin-bottom: 0.25rem;
+            text-align: left;
+            width: 100%;
+        }
+        .sidebar-item:active, .sidebar-item:hover {
+            background: rgba(76, 201, 240, 0.1);
+            color: #4cc9f0;
+            transform: translateX(10px);
+        }
+
+        .flip-card {
+            overflow: visible;
+            width: 100%;
+            max-width: 320px; 
+            height: 200px; 
+            margin: 0 auto;
+        }
+        .flip-content {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.05);
+            border-radius: 16px;
+        }
+        .flip-front, .flip-back {
+            background-color: #FFFFFF;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .flip-back {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            transform: rotateY(180deg);
+        }
+        .flip-back::before {
+            position: absolute;
+            content: ' ';
+            display: block;
+            width: 600px; 
+            height: 600px; 
+            top: 50%;
+            left: 50%;
+            margin-top: -300px;
+            margin-left: -300px;
+            background: linear-gradient(90deg, transparent, #4cc9f0, #4361ee, #f72585, transparent);
+            animation: rotation_481 4000ms infinite linear;
+        }
+        .flip-back-content {
+            position: absolute;
+            width: 98%;
+            height: 98%;
+            background-color: #FFFFFF;
+            border-radius: 14px;
+            color: #1E293B;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+        .flip-card:hover .flip-content { transform: rotateY(180deg); }
+        @keyframes rotation_481 {
+            0% { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(360deg); }
+        }
+        .flip-front {
+            background: linear-gradient(145deg, #FFFFFF, #F8F9FA);
+        }
+        .flip-front-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 16px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .flip-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        .f-circle {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            position: absolute;
+            filter: blur(30px);
+            animation: floating 3s infinite linear;
+        }
+        .fc-1 { background-color: #4cc9f0; left: -20px; top: -20px; opacity: 0.6;}
+        .fc-2 { background-color: #4361ee; right: -20px; bottom: -20px; animation-delay: -1.5s; opacity: 0.6;}
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .carousel-wrapper {
+            min-height: 400px;
+            padding: 20px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            width: 100%;
+            user-select: none;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden; 
+            padding: 16px; 
+            width: 100%; 
+            max-width: 480px;
+            border: 1px solid #E2E8F0;
+            border-radius: 24px;
+            background-color: #F8F9FA;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .carousel-track {
+            display: flex;
+            gap: 24px; 
+            transform-style: preserve-3d;
+            touch-action: none; 
+            width: 100%;
+        }
+        .carousel-item {
+            position: relative;
+            display: flex;
+            flex-shrink: 0;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            background-color: #FFFFFF;
+            overflow: hidden;
+            cursor: grab;
+            box-sizing: border-box;
+            -webkit-user-drag: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .carousel-item:active {
+            cursor: grabbing;
+        }
+        
+        .carousel-indicators-container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .carousel-indicators {
+            display: flex;
+            width: 120px;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .carousel-indicator {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 150ms;
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+        .carousel-indicator.active {
+            background-color: #3a0ca3; 
+        }
+
+        .scroll-float {
+            overflow: hidden; width: 100%; display: flex; justify-content: center;
+            background-color: transparent; padding: 4rem 0;
+        }
+        .scroll-float-text {
+            display: inline-block; font-size: clamp(2rem, 8vw, 8rem); font-weight: 900; text-align: center;
+            color: rgba(67, 97, 238, 0.1);
+            -webkit-text-stroke: 1px rgba(67, 97, 238, 0.25);
+        }
+        .char { display: inline-block; }
+        
+        .blur-text-container {
+            display: flex; flex-wrap: wrap; justify-content: center; font-size: clamp(1.2rem, 3.5vw, 2.5rem); font-weight: 700; color: #3a0ca3;
+            text-align: center;
+        }
+        .blur-text-segment { display: inline-block; will-change: transform, filter, opacity; margin-right: 8px;}
+        .career-blur-segment { display: inline-block; will-change: transform, filter, opacity; }
+
+        .section-title { color: #1E293B; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .underline-accent { width: 60px; height: 4px; background-color: #4cc9f0; margin: 10px auto 30px auto; border-radius: 2px;}
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <div id="contact-modal" class="fixed inset-0 z-[200] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeContactModal()"></div>
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-[90%] relative z-10 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="contact-modal-content">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors">
+                <i class="ph-bold ph-x text-dark-text"></i>
+            </button>
+            <h3 class="text-xl font-black text-dark-text mb-2">Contact Us</h3>
+            <p class="text-xs text-muted-text mb-6">Please select a designated number to forward your inquiry via WhatsApp.</p>
+            <div class="space-y-3">
+                <button onclick="proceedToContact('919425307166')" class="w-full flex items-center justify-between p-4 rounded-2xl border border-electric-sapphire/30 bg-electric-sapphire/5 hover:bg-electric-sapphire hover:text-white group transition-all">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-whatsapp-logo text-2xl text-electric-sapphire group-hover:text-white transition-colors"></i>
+                        <span class="font-bold text-sm tracking-widest">+91 9425307166</span>
+                    </div>
+                    <i class="ph-bold ph-caret-right"></i>
+                </button>
+                <button onclick="proceedToContact('919039697166')" class="w-full flex items-center justify-between p-4 rounded-2xl border border-neon-pink/30 bg-neon-pink/5 hover:bg-neon-pink hover:text-white group transition-all">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-whatsapp-logo text-2xl text-neon-pink group-hover:text-white transition-colors"></i>
+                        <span class="font-bold text-sm tracking-widest">+91 9039697166</span>
+                    </div>
+                    <i class="ph-bold ph-caret-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-overlay" class="fixed inset-0 bg-black/40 z-[110] hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm" onclick="toggleMenu()"></div>
+    <div id="side-menu" class="fixed top-0 left-0 h-full w-[85%] md:w-[350px] z-[120] -translate-x-full p-8 flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center gap-3">
+                <img src="https://i.ibb.co/sp5688mL/1000284389.png" class="h-10 md:h-12 w-auto object-contain" alt="Logo">
+                <div>
+                    <h3 id="sidebar-shiny-text" class="text-xs md:text-sm font-black uppercase tracking-widest"></h3>
+                </div>
+            </div>
+            <button onclick="toggleMenu()" class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center border border-border-light active:scale-90 transition-transform hover:bg-slate-200">
+                <i class="ph-bold ph-x text-lg text-dark-text"></i>
+            </button>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto pb-10 pr-2 space-y-1" id="sidebar-nav">
+            <a href="#home" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-house text-xl text-sky-aqua"></i> Home</a>
+            <a href="#projects" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-projector-screen text-xl text-electric-sapphire"></i> Projects</a>
+            <a href="#ai-energy" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-cpu text-xl text-vivid-royal"></i> AI Energy</a>
+            <a href="#schemes" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-bank text-xl text-neon-pink"></i> Govt Schemes</a>
+            <a href="#agriculture" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-plant text-xl text-indigo-bloom"></i> Agriculture</a>
+            <a href="#calculator" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-calculator text-xl text-electric-sapphire"></i> Calculator</a>
+            <a href="#franchise" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-briefcase text-xl text-neon-pink"></i> Franchise</a>
+            <a href="#products" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-package text-xl text-vivid-royal"></i> Our Product</a>
+            <a href="#blog" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-article text-xl text-electric-sapphire"></i> Blog</a>
+            <a href="#careers" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-rocket text-xl text-sky-aqua"></i> Careers</a>
+            <a href="#epc" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-wrench text-xl text-neon-pink"></i> EPC Service</a>
+            <a href="javascript:void(0)" onclick="openContactModal('Hello Solar-Solutions India, I want to contact you.')" class="sidebar-item hover:bg-slate-50"><i class="ph-fill ph-phone text-xl text-indigo-bloom"></i> Contact Us</a>
+        </nav>
+    </div>
+
+    <nav class="sticky top-0 w-full bg-white/80 backdrop-blur-xl shadow-sm z-40 transition-all duration-300 border-b border-border-light">
+        <div class="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-14 md:h-16">
+                <div class="flex items-center gap-3">
+                    <img src="https://i.ibb.co/sp5688mL/1000284389.png" alt="Solar-Solutions Logo" class="h-8 md:h-10 w-auto object-contain">
+                    <span id="header-shiny-text" style="opacity: 0;" class="block text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-wider sm:tracking-widest"></span>
+                </div>
+                
+                <div class="hidden xl:flex space-x-5 items-center font-bold text-slate-500 text-[12px] uppercase tracking-wider">
+                    <a href="#home" class="hover:text-sky-aqua transition-colors">Home</a>
+                    <a href="#projects" class="hover:text-electric-sapphire transition-colors">Projects</a>
+                    <a href="#schemes" class="hover:text-neon-pink transition-colors">Schemes</a>
+                    <a href="#agriculture" class="hover:text-indigo-bloom transition-colors">Agriculture</a>
+                    <a href="#calculator" class="hover:text-vivid-royal transition-colors">Calculator</a>
+                    <a href="#franchise" class="hover:text-neon-pink transition-colors">Franchise</a>
+                    <a href="#products" class="hover:text-sky-aqua transition-colors">Products</a>
+                    <a href="#careers" class="hover:text-sky-aqua transition-colors">Careers</a>
+                    <a href="#epc" class="hover:text-electric-sapphire transition-colors">EPC</a>
+                    <a href="javascript:void(0)" onclick="openContactModal('Hello Solar-Solutions India, I need more information.')" class="hover:text-indigo-bloom transition-colors">Contact</a>
+                </div>
+                <div class="xl:hidden flex items-center">
+                    <button onclick="toggleMenu()" class="w-8 h-8 bg-slate-50 rounded flex items-center justify-center border border-border-light active:scale-90 transition-transform">
+                        <i class="ph-bold ph-list text-lg text-dark-text"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative py-20 lg:py-32 overflow-hidden flex items-center justify-center min-h-[85vh]">
+        <div class="absolute inset-0 bg-[url('https://i.ibb.co/3Jqv3xW/1000284375.webp')] bg-cover bg-center opacity-[0.15]"></div>
+        <div class="relative z-10 text-center px-4 max-w-6xl mx-auto flex flex-col items-center">
+            
+            <p class="text-electric-sapphire font-black tracking-widest uppercase mb-4 text-xs md:text-sm">
+                India's Premier Solar Brand
+            </p>
+            
+            <h1 class="text-2xl md:text-4xl lg:text-6xl font-black mb-6 uppercase tracking-wider">
+                <span id="home-shiny-text"></span>
+            </h1>
+            
+            <p class="text-sm md:text-base text-muted-text font-medium mb-8 max-w-3xl mx-auto bg-white/50 backdrop-blur-sm p-2 rounded-xl">
+                Available in <span class="text-dark-text font-black">7+ States</span> or <span class="text-vivid-royal font-black">50+ districts</span> across India, empowering millions with sustainable energy.
+            </p>
+            
+            <p class="text-xs text-slate-500 mb-12 max-w-2xl mx-auto italic font-bold">
+                "Leading EPC Players, Independent Power Producers, and Premier Solar Equipment Suppliers."
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl text-dark-text">
+                <div class="bg-white/90 backdrop-blur-md border border-border-light p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-2xl md:text-3xl font-black text-sky-aqua stat-counter" data-target="50">0</h3>
+                    <p class="text-[10px] text-muted-text uppercase tracking-widest mt-2 font-bold">Franchise Partners</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-md border border-border-light p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-2xl md:text-3xl font-black text-electric-sapphire stat-counter" data-target="400">0</h3>
+                    <p class="text-[10px] text-muted-text uppercase tracking-widest mt-2 font-bold">Projects Completed</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur-md border border-border-light p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-2xl md:text-3xl font-black text-neon-pink stat-counter" data-target="20">0</h3>
+                    <p class="text-[10px] text-muted-text uppercase tracking-widest mt-2 font-bold">Our Branches</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="scroll-float" id="scroll-float-container">
+        <span class="scroll-float-text" id="scroll-float-text">SUSTAINABILITY</span>
+    </div>
+
+    <section class="py-20 bg-light-section border-y border-border-light" id="epc">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-black text-dark-text mb-6 border-l-4 border-vivid-royal pl-4 uppercase tracking-wider">About Us</h2>
+                    <p class="text-muted-text mb-6 leading-relaxed text-sm md:text-base font-medium">
+                        "Solar-Solutions India is one of the nation's largest EPC and manufacturing powerhouses, known for its strong operational capacity and dedication to a greener future. We deliver a complete package of resources to execute infrastructure projects flawlessly, alleviating risk for our partners."
+                    </p>
+                    <p class="text-dark-text font-bold bg-slate-50 p-4 rounded-lg inline-block border border-border-light text-sm shadow-sm">
+                        Energy Targets: Backing India’s 500 GW 2030 renewable energy mission.
+                    </p>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-border-light hover:border-neon-pink transition-colors relative overflow-hidden group">
+                        <i class="ph-bold ph-target absolute -bottom-6 -right-6 text-[120px] text-neon-pink opacity-[0.06] group-hover:opacity-10 transition-opacity pointer-events-none transform -rotate-12"></i>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-neon-pink mb-2 flex items-center gap-3">
+                                <i data-feather="target"></i> OUR MISSION
+                            </h3>
+                            <p class="text-muted-text text-sm leading-relaxed font-medium">
+                                Solar-Solutions India produces high-tier solar PV modules and acts as an integrated green energy provider. To supply cutting-edge solar and EV charging infrastructure that empowers communities, drastically reduces carbon footprints, and drives sustainability.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-border-light hover:border-sky-aqua transition-colors relative overflow-hidden group">
+                        <i class="ph-bold ph-eye absolute -bottom-6 -right-6 text-[120px] text-sky-aqua opacity-[0.06] group-hover:opacity-10 transition-opacity pointer-events-none transform -rotate-12"></i>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-sky-aqua mb-2 flex items-center gap-3">
+                                <i data-feather="eye"></i> OUR VISION
+                            </h3>
+                            <p class="text-muted-text text-sm leading-relaxed font-medium">
+                                We are laser-focused on contributing to national and global solar transition targets. Our ultimate vision is to secure our position as the undisputed global leader in renewable tech and smart EV infrastructure.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-light-bg" id="gallery">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl md:text-2xl text-center section-title text-dark-text">Promoting Our Installations</h2>
+            <div class="underline-accent" style="background-color: #7209b7;"></div>
+            
+            <div class="flex justify-center gap-4 mb-10">
+                <button id="btn-solar-plants" class="px-6 py-2 rounded-full border border-sky-aqua text-white bg-sky-aqua font-bold text-sm tracking-widest uppercase transition-colors shadow-md">Solar Plants</button>
+                <button id="btn-ev-stations" class="px-6 py-2 rounded-full border border-border-light text-muted-text bg-white font-bold text-sm tracking-widest uppercase transition-colors hover:bg-slate-50">EV Stations</button>
+            </div>
+
+            <div id="slider-solar-plants" class="flex overflow-x-auto gap-6 snap-x snap-mandatory hide-scrollbar pb-8 px-4">
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://cdn.britannica.com/94/192794-050-3F3F3DDD/panels-electricity-order-sunlight.jpg" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://solex.in/wp-content/uploads/2024/12/What-are-the-Types-of-Solar-Power-Plants-1536x864.webp" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+            </div>
+
+            <div id="slider-ev-stations" class="hidden overflow-x-auto gap-6 snap-x snap-mandatory hide-scrollbar pb-8 px-4">
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://www.nxp.com/assets/images/en/photography/EVESCAR.png" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://evbox.com/app/uploads/2025/12/futur.webp" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://img-cdn.publive.online/fit-in/640x430/filters:format(webp)/saur-energy/media/post_attachments/2018/11/ev-charging-e1560316240715.jpg" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[500px] h-[300px] rounded-3xl overflow-hidden relative border border-border-light shadow-md bg-slate-200">
+                    <div class="skeleton-overlay"></div>
+                    <img src="https://etimg.etb2bimg.com/photo/101592285.cms" class="w-full h-full object-cover relative z-10 opacity-0 transition-all duration-700 hover:scale-105" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-light-section border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl md:text-2xl text-center section-title">WHY Solar-Solutions India</h2>
+            <div class="underline-accent"></div>
+            <p class="text-center text-muted-text max-w-4xl mx-auto mb-16 text-sm md:text-base leading-relaxed font-medium">
+                Solar-Solutions India is built on the core pillars of innovation, technical expertise, and relentless customer relevance. Since recognizing the immense potential of renewable energy, we have honed our delivery focus to build significant capabilities, making us India's most sought-after partner.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 relative border-t border-border-light bg-light-bg">
+        <div class="absolute inset-0 bg-[url('https://i.ibb.co/3Jqv3xW/1000284375.webp')] bg-cover bg-center opacity-[0.15]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-xl md:text-2xl text-center font-black text-dark-text mb-4 uppercase tracking-widest">Why Choose Us</h2>
+            <p class="text-center text-electric-sapphire mb-16 text-xs uppercase tracking-widest font-bold">We provide full service at every step.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="flip-card">
+                  <div class="flip-content">
+                    <div class="flip-back">
+                      <div class="flip-back-content">
+                        <i data-feather="file-text" class="w-8 h-8 text-sky-aqua"></i>
+                        <p class="text-[11px] font-medium leading-relaxed mt-2">Say goodbye to lengthy paperwork with hassle-free documentation. Super quick setup guaranteed.</p>
+                      </div>
+                    </div>
+                    <div class="flip-front">
+                      <div class="flip-img">
+                        <div class="f-circle fc-1"></div>
+                        <div class="f-circle fc-2"></div>
+                      </div>
+                      <div class="flip-front-content">
+                        <small class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] w-fit border border-border-light uppercase tracking-widest text-sky-aqua font-bold shadow-sm">Advantage 1</small>
+                        <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-border-light shadow-md">
+                          <p class="font-bold text-sm mb-1 flex justify-between items-center text-dark-text">
+                            Minimal Docs
+                            <i data-feather="arrow-right" class="w-4 h-4 text-sky-aqua"></i>
+                          </p>
+                          <p class="text-muted-text text-[9px] uppercase tracking-wider font-semibold">Hover to flip</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flip-card">
+                  <div class="flip-content">
+                    <div class="flip-back">
+                      <div class="flip-back-content">
+                        <i data-feather="credit-card" class="w-8 h-8 text-electric-sapphire"></i>
+                        <p class="text-[11px] font-medium leading-relaxed mt-2">Tailor your repayment schedule to your budget with our highly flexible EMI options.</p>
+                      </div>
+                    </div>
+                    <div class="flip-front">
+                      <div class="flip-img">
+                        <div class="f-circle fc-1" style="background-color:#4361ee"></div>
+                        <div class="f-circle fc-2" style="background-color:#f72585"></div>
+                      </div>
+                      <div class="flip-front-content">
+                        <small class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] w-fit border border-border-light uppercase tracking-widest text-electric-sapphire font-bold shadow-sm">Advantage 2</small>
+                        <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-border-light shadow-md">
+                          <p class="font-bold text-sm mb-1 flex justify-between items-center text-dark-text">
+                            Flexible EMIs
+                            <i data-feather="arrow-right" class="w-4 h-4 text-electric-sapphire"></i>
+                          </p>
+                          <p class="text-muted-text text-[9px] uppercase tracking-wider font-semibold">Hover to flip</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flip-card">
+                  <div class="flip-content">
+                    <div class="flip-back">
+                      <div class="flip-back-content">
+                        <i data-feather="check-circle" class="w-8 h-8 text-neon-pink"></i>
+                        <p class="text-[11px] font-medium leading-relaxed mt-2">Say hello to quick approvals. Get your loan application approved fast and safely.</p>
+                      </div>
+                    </div>
+                    <div class="flip-front">
+                      <div class="flip-img">
+                        <div class="f-circle fc-1" style="background-color:#f72585"></div>
+                        <div class="f-circle fc-2" style="background-color:#4cc9f0"></div>
+                      </div>
+                      <div class="flip-front-content">
+                        <small class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] w-fit border border-border-light uppercase tracking-widest text-neon-pink font-bold shadow-sm">Advantage 3</small>
+                        <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-border-light shadow-md">
+                          <p class="font-bold text-sm mb-1 flex justify-between items-center text-dark-text">
+                            Quick Approvals
+                            <i data-feather="arrow-right" class="w-4 h-4 text-neon-pink"></i>
+                          </p>
+                          <p class="text-muted-text text-[9px] uppercase tracking-wider font-semibold">Hover to flip</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flip-card">
+                  <div class="flip-content">
+                    <div class="flip-back">
+                      <div class="flip-back-content">
+                        <i data-feather="briefcase" class="w-8 h-8 text-indigo-bloom"></i>
+                        <p class="text-[11px] font-medium leading-relaxed mt-2">One-stop financial solution for all your needs. Specific loans for every distinct solar need.</p>
+                      </div>
+                    </div>
+                    <div class="flip-front">
+                      <div class="flip-img">
+                        <div class="f-circle fc-1" style="background-color:#7209b7"></div>
+                        <div class="f-circle fc-2" style="background-color:#4cc9f0"></div>
+                      </div>
+                      <div class="flip-front-content">
+                        <small class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] w-fit border border-border-light uppercase tracking-widest text-indigo-bloom font-bold shadow-sm">Advantage 4</small>
+                        <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl border border-border-light shadow-md">
+                          <p class="font-bold text-sm mb-1 flex justify-between items-center text-dark-text">
+                            Solar Loans
+                            <i data-feather="arrow-right" class="w-4 h-4 text-indigo-bloom"></i>
+                          </p>
+                          <p class="text-muted-text text-[9px] uppercase tracking-wider font-semibold">Hover to flip</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light-section py-24 flex items-center justify-center px-4 border-t border-border-light">
+        <div id="every-time-blur-target" class="blur-text-container max-w-5xl"></div>
+    </section>
+
+    <section class="bg-light-bg pt-20 overflow-visible border-t border-border-light relative" id="projects">
+        <div class="max-w-2xl mx-auto px-6 text-center mb-10 relative z-20">
+            <h2 class="text-xl md:text-2xl text-center section-title">INTEGRATED PROJECTS</h2>
+            <div class="underline-accent" style="background-color: #3a0ca3;"></div>
+            <p class="text-center text-muted-text max-w-3xl mx-auto text-xs md:text-sm leading-relaxed font-medium">
+                Our priority lies in putting customers at the center of every project. By deploying highly engineered energy-efficient solutions, Solar-Solutions India creates resilient long-term partnerships.
+            </p>
+        </div>
+
+        <div class="max-w-xl mx-auto px-4 pb-[10vh] relative z-20" id="cards-container">
+            
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-sky-aqua/40 rounded-[20px] overflow-hidden" style="--index: 0">
+                <i class="ph-bold ph-lightning absolute -bottom-8 -right-8 text-[180px] text-sky-aqua opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-lightning text-3xl text-sky-aqua"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-sky-aqua border border-sky-aqua/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Scale</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">5 MW Capacity of Projects</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Consistently delivering high-performance energy output. We specialize in robust, scalable solar solutions tailored to industrial needs, ensuring maximum ROI and flawless integration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-indigo-bloom/40 rounded-[20px] overflow-hidden" style="--index: 1">
+                <i class="ph-bold ph-chart-line-up absolute -bottom-8 -right-8 text-[180px] text-indigo-bloom opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-chart-line-up text-3xl text-indigo-bloom"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-indigo-bloom border border-indigo-bloom/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Finance</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">Healthy Operating Finance Metrics</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Sustainable growth backed by strong financials. Solar-Solutions India's disciplined fiscal approach guarantees long-term stability and unmatched value delivery to our stakeholders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-neon-pink/40 rounded-[20px] overflow-hidden" style="--index: 2">
+                <i class="ph-bold ph-folder-star absolute -bottom-8 -right-8 text-[180px] text-neon-pink opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-folder-star text-3xl text-neon-pink"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-neon-pink border border-neon-pink/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Portfolio</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">Build Attractive Portfolio of Projects</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Creating a diverse and high-yielding collection of renewable energy assets. From commercial rooftops to utility-scale farms, optimizing value for all our stakeholders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-vivid-royal/40 rounded-[20px] overflow-hidden" style="--index: 3">
+                <i class="ph-bold ph-charging-station absolute -bottom-8 -right-8 text-[180px] text-vivid-royal opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-charging-station text-3xl text-vivid-royal"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-vivid-royal border border-vivid-royal/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Mobility</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">Major Supplies of EV Charge to provide last mile connectivity</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Empowering electric mobility with robust charging infrastructure. Our smart EV stations guarantee fast, reliable energy access for sustainable last-mile transportation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-sky-aqua/40 rounded-[20px] overflow-hidden" style="--index: 4">
+                <i class="ph-bold ph-flask absolute -bottom-8 -right-8 text-[180px] text-sky-aqua opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-flask text-3xl text-sky-aqua"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-sky-aqua border border-sky-aqua/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Innovation</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">A R&D center that integrates solar & storage to provide 24 hr energy</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Integrating cutting-edge technologies to provide 24-hour energy. Our dedicated R&D facility continuously tests advanced battery storage systems, hybrid models, and smart grid automation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-electric-sapphire/40 rounded-[20px] overflow-hidden" style="--index: 5">
+                <i class="ph-bold ph-wind absolute -bottom-8 -right-8 text-[180px] text-electric-sapphire opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-wind text-3xl text-electric-sapphire"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-electric-sapphire border border-electric-sapphire/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Wind</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">Major Supplies of Wind Energy to provide last mile connectivity</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Harnessing the power of the wind to reach remote locations. Delivering reliable and clean kinetic energy solutions designed to strengthen and complete the national grid.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stack-card w-full h-[280px] md:h-[260px] mb-[15vh] bg-white text-dark-text flex flex-col justify-between border border-neon-pink/40 rounded-[20px] overflow-hidden" style="--index: 6">
+                <i class="ph-bold ph-sun absolute -bottom-8 -right-8 text-[180px] text-neon-pink opacity-[0.08] pointer-events-none transform -rotate-12"></i>
+                <div class="relative z-10 p-5 md:p-6 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="ph-bold ph-sun text-3xl text-neon-pink"></i>
+                            <span class="bg-white/90 backdrop-blur-sm text-neon-pink border border-neon-pink/20 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest shadow-sm">Solar</span>
+                        </div>
+                        <h2 class="text-lg font-black leading-tight mb-2">Major Supplies of Solar Energy provide last mile connectivity</h2>
+                        <p class="text-slate-800 text-[11px] md:text-xs leading-relaxed font-semibold">
+                            Deploying advanced photovoltaic systems for universal power access. Supplying consistent and renewable solar power right to the doorstep of every community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="ai-energy" class="py-20 bg-light-section border-t border-border-light overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <h2 class="text-xl md:text-2xl font-black text-dark-text mb-4 uppercase tracking-wider">Solving Energy Problems With <span class="text-electric-sapphire">AI</span></h2>
+                    <div class="w-16 h-1 bg-electric-sapphire mb-6 rounded"></div>
+                    <p class="text-muted-text mb-8 leading-relaxed text-sm md:text-base font-medium">
+                        We leverage cutting-edge Artificial Intelligence to revolutionize renewable energy management. Our AI-driven algorithms predict solar and wind generation patterns, optimize battery storage, and seamlessly balance grid loads in real-time.
+                    </p>
+                    <ul class="space-y-5">
+                        <li class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-electric-sapphire/10 border border-electric-sapphire/20 flex items-center justify-center text-electric-sapphire shrink-0"><i data-feather="cpu" class="w-5 h-5"></i></div>
+                            <span class="text-dark-text font-bold text-sm">Predictive Analytics for System Maintenance</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-electric-sapphire/10 border border-electric-sapphire/20 flex items-center justify-center text-electric-sapphire shrink-0"><i data-feather="activity" class="w-5 h-5"></i></div>
+                            <span class="text-dark-text font-bold text-sm">Smart Grid Performance Optimization</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-electric-sapphire/10 border border-electric-sapphire/20 flex items-center justify-center text-electric-sapphire shrink-0"><i data-feather="zap" class="w-5 h-5"></i></div>
+                            <span class="text-dark-text font-bold text-sm">Automated Real-Time Load Balancing</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 relative w-full h-[350px] md:h-[450px] rounded-3xl overflow-hidden shadow-lg border border-border-light group">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="AI in Energy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-electric-sapphire/30 to-transparent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="schemes" class="py-20 bg-light-bg border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl md:text-2xl text-center section-title text-neon-pink">Govt. Schemes & Subsidies</h2>
+            <div class="underline-accent" style="background-color: #f72585;"></div>
+            <p class="text-center text-muted-text mb-12 text-sm max-w-3xl mx-auto font-medium">We assist you from documentation to deployment under state and central government initiatives to maximize your solar savings.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white border border-border-light border-l-4 border-l-neon-pink p-8 rounded-r-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-bold text-dark-text mb-3">PM-Surya Ghar: Muft Bijli Yojana</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed font-medium">Avail massive subsidies on residential rooftop solar installations. Solar-Solutions India manages complete liaison support with local DISCOMs for fast and easy approvals.</p>
+                </div>
+                <div class="bg-white border border-border-light border-l-4 border-l-neon-pink p-8 rounded-r-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-bold text-dark-text mb-3">Net Metering Guidelines Integration</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed font-medium">Export excess power back to the grid. We provide end-to-end A to Z solutions ensuring your setup meets all regulatory frameworks perfectly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="agriculture" class="py-20 bg-light-section border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl md:text-2xl text-center section-title text-indigo-bloom">Agriculture Solar Solutions</h2>
+            <div class="underline-accent" style="background-color: #7209b7;"></div>
+            <p class="text-center text-muted-text mb-12 text-sm max-w-3xl mx-auto font-medium">Empowering farmers across rural India with highly efficient off-grid solar tech.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-light-bg border border-border-light p-8 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-bloom/50 transition-all relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[url('https://www.ibef.org/uploads/PM-Kusum-Yojna-introduction.jpg')] bg-cover bg-center opacity-[0.15] group-hover:opacity-30 transition-opacity pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-indigo-bloom/10 rounded-full flex items-center justify-center mb-4 text-indigo-bloom border border-indigo-bloom/20">
+                            <i class="ph-fill ph-drop text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark-text mb-3">PM KUSUM YOJNA</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Reliable daytime irrigation pumps backed by heavy government subsidies. Designed specifically for agricultural endurance.</p>
+                    </div>
+                </div>
+                <div class="bg-light-bg border border-border-light p-8 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-bloom/50 transition-all relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[url('https://justfence.in/cdn/shop/collections/Security_Fence.png?v=1753335852&width=600')] bg-cover bg-center opacity-[0.15] group-hover:opacity-30 transition-opacity pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-indigo-bloom/10 rounded-full flex items-center justify-center mb-4 text-indigo-bloom border border-indigo-bloom/20">
+                            <i class="ph-fill ph-shield-check text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-dark-text mb-3">Solar Electric Fencing</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed font-medium">Protect your high-yield crops from wild animals with non-lethal, sustainable, and highly effective solar fencing modules.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="py-20 overflow-hidden bg-light-bg border-t border-border-light">
+        <div class="text-center w-full flex flex-col items-center justify-center relative z-10 mb-2">
+            <h2 class="text-xl md:text-2xl text-dark-text font-bold uppercase tracking-widest mb-2">Our Products</h2>
+            <p class="text-vivid-royal text-[10px] uppercase tracking-widest bg-vivid-royal/10 px-3 py-1 rounded-full border border-vivid-royal/20 font-bold">Swipe the Cards or Click to drag</p>
+        </div>
+        
+        <div class="carousel-wrapper">
+            <div class="carousel-container" id="carousel">
+                <div class="carousel-track" id="prod-track">
+                </div>
+                <div class="carousel-indicators-container">
+                    <div class="carousel-indicators" id="indicators"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="py-20 bg-light-section border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-xl md:text-2xl text-center section-title">Solar-Solutions Blog</h2>
+            <div class="underline-accent" style="background-color: #3a0ca3;"></div>
+            <p class="text-center text-muted-text mb-12 text-xs md:text-sm uppercase tracking-widest font-bold">Stay updated on the latest developments</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white border border-border-light rounded-2xl p-6 hover:shadow-md hover:border-electric-sapphire transition-all shadow-sm">
+                    <p class="text-[9px] font-bold text-electric-sapphire mb-2 tracking-widest uppercase">JAN 15, 2024</p>
+                    <h3 class="text-base font-bold text-dark-text mb-3">Slash Your Electricity Bills</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Solar panels can reduce or even eliminate your electricity bills. Once installed, they generate free electricity for decades.</p>
+                </div>
+                <div class="bg-white border border-border-light rounded-2xl p-6 hover:shadow-md hover:border-sky-aqua transition-all shadow-sm">
+                    <p class="text-[9px] font-bold text-sky-aqua mb-2 tracking-widest uppercase">FEB 07, 2024</p>
+                    <h3 class="text-base font-bold text-dark-text mb-3">Homes with Wind Energy</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Homes with wind energy systems sell for more money and faster. Buyers are willing to pay a premium for houses equipped with wind turbines.</p>
+                </div>
+                <div class="bg-white border border-border-light rounded-2xl p-6 hover:shadow-md hover:border-neon-pink transition-all shadow-sm">
+                    <p class="text-[9px] font-bold text-neon-pink mb-2 tracking-widest uppercase">FEB 20, 2024</p>
+                    <h3 class="text-base font-bold text-dark-text mb-3">Homes with EV Charging</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Homes with EV charging systems sell faster. Buyers are willing to invest in future-ready homes with charging solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="py-20 bg-light-bg border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <div id="franchise" class="p-8 bg-white text-dark-text rounded-3xl shadow-md relative overflow-hidden border border-border-light hover:border-neon-pink/50 transition-colors">
+                <div class="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                <i data-feather="briefcase" class="absolute -right-10 -bottom-10 w-64 h-64 opacity-[0.06] text-dark-text"></i>
+                <h2 class="text-xl md:text-2xl font-bold mb-4 relative z-10 uppercase tracking-wide">Partnership Hub</h2>
+                <h4 class="text-sm font-semibold text-neon-pink mb-6 relative z-10 uppercase tracking-widest">Franchise & Investor</h4>
+                <p class="mb-8 text-muted-text text-xs relative z-10 leading-relaxed font-medium">
+                    Join hands with Solar-Solutions India. Become a channel partner or franchisee in your district. We provide technical training, marketing support, and leads to help you grow a profitable green business.
+                </p>
+                <button onclick="openContactModal('Hello Solar-Solutions India, I want to apply for Franchise!')" class="w-full sm:w-auto text-center border border-neon-pink bg-neon-pink/10 text-neon-pink hover:bg-neon-pink hover:text-white font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-lg relative z-10 transition-all cursor-pointer shadow-sm">
+                    Apply for Franchise
+                </button>
+            </div>
+
+            <div class="p-8 bg-white border border-border-light rounded-3xl shadow-md hover:shadow-lg hover:border-electric-sapphire/50 transition-all">
+                <h2 class="text-lg md:text-xl font-bold text-dark-text mb-6 flex items-center gap-2 uppercase tracking-wide">
+                    <i data-feather="pie-chart" class="text-electric-sapphire"></i> Solar Savings Calculator
+                </h2>
+                <div class="mb-6">
+                    <label class="block text-[10px] font-bold text-muted-text mb-2 uppercase tracking-widest">Avg Monthly Bill (₹)</label>
+                    <input type="range" id="billSlider" min="1000" max="20000" step="500" value="3000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-electric-sapphire">
+                    <div class="flex justify-between text-[9px] text-slate-500 mt-2 font-bold">
+                        <span>₹1,000</span>
+                        <span id="billValueDisplay" class="text-electric-sapphire text-xs font-black">₹3,000</span>
+                        <span>₹20,000+</span>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 p-5 rounded-xl border border-border-light shadow-inner">
+                    <div class="flex justify-between items-center mb-4 border-b border-border-light pb-4">
+                        <span class="text-slate-500 text-[9px] uppercase tracking-wider font-bold">Recommended System Size:</span>
+                        <span id="systemSize" class="font-black text-xs text-vivid-royal">3 kW</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-500 text-[9px] uppercase tracking-wider font-bold">Estimated Yearly Savings:</span>
+                        <span id="yearlySavings" class="font-black text-sm text-electric-sapphire">₹ 28,800</span>
+                    </div>
+                </div>
+                <p class="text-[8px] text-slate-400 mt-4 text-center uppercase tracking-widest font-bold">*Estimates based on standard generation & tariffs.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="careers" class="py-24 relative overflow-hidden bg-light-section border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="lg:w-1/2 text-dark-text">
+                <span class="career-anim-element inline-block py-1 px-3 rounded-full bg-sky-aqua/10 border border-sky-aqua/20 text-sky-aqua text-[10px] font-bold uppercase tracking-widest mb-4">Join The Revolution</span>
+                <h2 id="career-heading" class="text-3xl md:text-5xl font-black mb-6 leading-tight uppercase tracking-wide text-dark-text flex flex-wrap gap-x-2 gap-y-1">
+                    <span class="blur-text-segment">Build</span>
+                    <span class="blur-text-segment">a</span>
+                    <span class="blur-text-segment">Career</span>
+                    <span class="blur-text-segment">that</span>
+                    <span class="blur-text-segment text-sky-aqua">Builds</span>
+                    <span class="blur-text-segment text-sky-aqua">the</span>
+                    <span class="blur-text-segment text-sky-aqua">Future</span>
+                </h2>
+                <p class="career-anim-element text-muted-text mb-8 text-sm leading-relaxed max-w-lg font-medium">
+                    We are constantly looking for innovative minds, passionate engineers, and driven professionals to join our mission of powering India with 100% renewable energy. Let's make an impact together.
+                </p>
+                <div class="career-anim-element flex gap-4">
+                    <button onclick="openContactModal('Hello Solar-Solutions, I am inquiring about Career Opportunities.')" class="px-8 py-4 rounded-full bg-sky-aqua text-white font-bold text-xs uppercase tracking-widest hover:bg-electric-sapphire hover:text-white transition-all shadow-md hover:shadow-lg">Explore Openings</button>
+                </div>
+            </div>
+            <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+                <div class="bg-white border border-border-light p-6 rounded-3xl hover:shadow-md hover:border-sky-aqua/40 transition-all relative overflow-hidden group shadow-sm">
+                    <i class="ph-bold ph-rocket absolute -bottom-6 -right-6 text-[120px] text-sky-aqua opacity-[0.08] group-hover:opacity-[0.15] transition-opacity pointer-events-none transform -rotate-12"></i>
+                    <div class="relative z-10">
+                        <i class="ph-fill ph-rocket text-3xl text-sky-aqua mb-4"></i>
+                        <h4 class="text-dark-text font-bold text-sm mb-2">Rapid Growth</h4>
+                        <p class="text-slate-600 text-[10px] leading-relaxed font-medium">Fast-track your career in the booming renewable sector.</p>
+                    </div>
+                </div>
+                <div class="bg-white border border-border-light p-6 rounded-3xl hover:shadow-md hover:border-neon-pink/40 transition-all transform lg:translate-y-8 relative overflow-hidden group shadow-sm">
+                    <i class="ph-bold ph-lightbulb absolute -bottom-6 -right-6 text-[120px] text-neon-pink opacity-[0.08] group-hover:opacity-[0.15] transition-opacity pointer-events-none transform -rotate-12"></i>
+                    <div class="relative z-10">
+                        <i class="ph-fill ph-lightbulb text-3xl text-neon-pink mb-4"></i>
+                        <h4 class="text-dark-text font-bold text-sm mb-2">Innovation Lab</h4>
+                        <p class="text-slate-600 text-[10px] leading-relaxed font-medium">Work with cutting-edge solar and AI tech daily.</p>
+                    </div>
+                </div>
+                <div class="bg-white border border-border-light p-6 rounded-3xl hover:shadow-md hover:border-electric-sapphire/40 transition-all relative overflow-hidden group shadow-sm">
+                    <i class="ph-bold ph-globe-hemisphere-west absolute -bottom-6 -right-6 text-[120px] text-electric-sapphire opacity-[0.08] group-hover:opacity-[0.15] transition-opacity pointer-events-none transform -rotate-12"></i>
+                    <div class="relative z-10">
+                        <i class="ph-fill ph-globe-hemisphere-west text-3xl text-electric-sapphire mb-4"></i>
+                        <h4 class="text-dark-text font-bold text-sm mb-2">Global Impact</h4>
+                        <p class="text-slate-600 text-[10px] leading-relaxed font-medium">Contribute directly to net-zero global emissions.</p>
+                    </div>
+                </div>
+                <div class="bg-white border border-border-light p-6 rounded-3xl hover:shadow-md hover:border-indigo-bloom/40 transition-all transform lg:translate-y-8 relative overflow-hidden group shadow-sm">
+                    <i class="ph-bold ph-heart absolute -bottom-6 -right-6 text-[120px] text-indigo-bloom opacity-[0.08] group-hover:opacity-[0.15] transition-opacity pointer-events-none transform -rotate-12"></i>
+                    <div class="relative z-10">
+                        <i class="ph-fill ph-heart text-3xl text-indigo-bloom mb-4"></i>
+                        <h4 class="text-dark-text font-bold text-sm mb-2">Great Culture</h4>
+                        <p class="text-slate-600 text-[10px] leading-relaxed font-medium">Inclusive, supportive, and highly collaborative team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-light-bg text-muted-text py-16 border-t border-border-light">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="https://i.ibb.co/sp5688mL/1000284389.png" class="h-10 md:h-12 w-auto object-contain" alt="Solar-Solutions India Logo">
+                    <span class="font-black text-lg text-dark-text">SOLAR-SOLUTIONS INDIA</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mb-6 max-w-sm leading-relaxed font-medium">
+                    Operating across 15+ states, Solar-Solutions India supports the nation's transition to green energy. With unmatched expertise in solar, wind, and BESS, we power India’s journey towards its Net Zero goal by 2070.
+                </p>
+                <div class="flex space-x-4 mb-6">
+                    <a href="https://www.facebook.com/" target="_blank" class="w-10 h-10 rounded-full bg-white border border-border-light flex items-center justify-center hover:border-neon-pink hover:text-neon-pink text-slate-600 shadow-sm transition-all"><i data-feather="facebook" class="w-4 h-4"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" class="w-10 h-10 rounded-full bg-white border border-border-light flex items-center justify-center hover:border-neon-pink hover:text-neon-pink text-slate-600 shadow-sm transition-all"><i data-feather="instagram" class="w-4 h-4"></i></a>
+                    <a href="https://www.linkedin.com/" target="_blank" class="w-10 h-10 rounded-full bg-white border border-border-light flex items-center justify-center hover:border-neon-pink hover:text-neon-pink text-slate-600 shadow-sm transition-all"><i data-feather="linkedin" class="w-4 h-4"></i></a>
+                    <a href="https://x.com/" target="_blank" class="w-10 h-10 rounded-full bg-white border border-border-light flex items-center justify-center hover:border-neon-pink hover:text-neon-pink text-slate-600 shadow-sm transition-all"><i data-feather="twitter" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-dark-text font-bold mb-4 uppercase text-[10px] tracking-widest">Quick Links</h4>
+                <ul class="space-y-3 text-xs font-semibold">
+                    <li><a href="#home" class="hover:text-sky-aqua transition">Home</a></li>
+                    <li><a href="#projects" class="hover:text-sky-aqua transition">Projects</a></li>
+                    <li><a href="#calculator" class="hover:text-sky-aqua transition">Calculator</a></li>
+                    <li><a href="#franchise" class="hover:text-sky-aqua transition">Franchise</a></li>
+                    <li><a href="javascript:void(0)" onclick="openContactModal('Hello Solar-Solutions India!')" class="hover:text-sky-aqua transition">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="text-dark-text font-bold mb-4 uppercase text-[10px] tracking-widest">Contact Us</h4>
+                <ul class="space-y-4 text-xs">
+                    <li class="flex items-start gap-3 font-medium">
+                        <i data-feather="map-pin" class="w-4 h-4 text-electric-sapphire mt-1 flex-shrink-0"></i>
+                        <span class="text-[11px] text-slate-500">Headquarters:<br>Gwalior,<br>Madhya Pradesh India</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-feather="phone" class="w-4 h-4 text-electric-sapphire flex-shrink-0"></i>
+                        <div>
+                            <span class="block text-[9px] uppercase tracking-widest text-slate-400 font-bold">Customer Care Number</span>
+                            <span class="font-black text-dark-text text-[11px]">+91 9425307166<br>+91 9039697166</span>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-3 font-medium">
+                        <i data-feather="mail" class="w-4 h-4 text-electric-sapphire flex-shrink-0"></i>
+                        <span class="text-[11px] text-slate-500">solarsolutions.india@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-border-light text-center text-[9px] text-slate-400 uppercase tracking-widest font-bold">
+            Copyright &copy; 2026 Solar-Solutions India | Made by EnigmaForge Studios
+        </div>
+    </footer>
+
+    <script>
+        (function cacheCriticalImages() {
+            const staticImages = [
+                'https://i.ibb.co/3Jqv3xW/1000284375.webp',
+                'https://i.ibb.co/sp5688mL/1000284389.png',
+                'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop',
+                'https://cdn.britannica.com/94/192794-050-3F3F3DDD/panels-electricity-order-sunlight.jpg',
+                'https://solex.in/wp-content/uploads/2024/12/What-are-the-Types-of-Solar-Power-Plants-1536x864.webp',
+                'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1000&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1000&auto=format&fit=crop',
+                'https://www.nxp.com/assets/images/en/photography/EVESCAR.png',
+                'https://evbox.com/app/uploads/2025/12/futur.webp',
+                'https://img-cdn.publive.online/fit-in/640x430/filters:format(webp)/saur-energy/media/post_attachments/2018/11/ev-charging-e1560316240715.jpg',
+                'https://etimg.etb2bimg.com/photo/101592285.cms',
+                'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop'
+            ];
+            
+            staticImages.forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        })();
+
+        feather.replace();
+
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 2,
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('side-menu');
+            const overlay = document.getElementById('menu-overlay');
+            if(menu.classList.contains('-translate-x-full')) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+                menu.classList.remove('-translate-x-full');
+            } else {
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+                menu.classList.add('-translate-x-full');
+            }
+        }
+
+        document.querySelectorAll('#sidebar-nav .sidebar-item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = e.currentTarget.getAttribute('href');
+                if (targetId && targetId.startsWith('#')) {
+                    e.preventDefault();
+                    toggleMenu(); 
+                    setTimeout(() => {
+                        lenis.scrollTo(targetId, { offset: -80, duration: 1.5 });
+                    }, 350); 
+                }
+            });
+        });
+
+        let currentInquiryMsg = '';
+        
+        function openContactModal(msg) {
+            currentInquiryMsg = msg;
+            const modal = document.getElementById('contact-modal');
+            const content = document.getElementById('contact-modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contact-modal');
+            const content = document.getElementById('contact-modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        function proceedToContact(phone) {
+            const encoded = encodeURIComponent(currentInquiryMsg);
+            window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+            closeContactModal();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            const btnSolar = document.getElementById('btn-solar-plants');
+            const btnEv = document.getElementById('btn-ev-stations');
+            const sliderSolar = document.getElementById('slider-solar-plants');
+            const sliderEv = document.getElementById('slider-ev-stations');
+
+            if (btnSolar && btnEv && sliderSolar && sliderEv) {
+                btnSolar.addEventListener('click', () => {
+                    sliderSolar.classList.remove('hidden');
+                    sliderSolar.classList.add('flex');
+                    sliderEv.classList.add('hidden');
+                    sliderEv.classList.remove('flex');
+                    
+                    btnSolar.className = 'px-6 py-2 rounded-full border border-sky-aqua text-white bg-sky-aqua font-bold text-sm tracking-widest uppercase transition-colors shadow-md';
+                    btnEv.className = 'px-6 py-2 rounded-full border border-border-light text-muted-text bg-white font-bold text-sm tracking-widest uppercase transition-colors hover:bg-slate-50';
+                });
+
+                btnEv.addEventListener('click', () => {
+                    sliderEv.classList.remove('hidden');
+                    sliderEv.classList.add('flex');
+                    sliderSolar.classList.add('hidden');
+                    sliderSolar.classList.remove('flex');
+                    
+                    btnEv.className = 'px-6 py-2 rounded-full border border-electric-sapphire text-white bg-electric-sapphire font-bold text-sm tracking-widest uppercase transition-colors shadow-md';
+                    btnSolar.className = 'px-6 py-2 rounded-full border border-border-light text-muted-text bg-white font-bold text-sm tracking-widest uppercase transition-colors hover:bg-slate-50';
+                });
+            }
+
+            gsap.registerPlugin(ScrollTrigger);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
+
+            function initShinyText(elementId, config) {
+                const el = document.getElementById(elementId);
+                if (!el) return;
+
+                const {
+                    text = '', speed = 2, color = '#1E293B', shineColor = '#4cc9f0',
+                    spread = 120, direction = 'left', delay = 0, yoyo = false
+                } = config;
+
+                el.textContent = text;
+                el.classList.add('shiny-text');
+
+                el.style.backgroundImage = `linear-gradient(${spread}deg, ${color} 0%, ${color} 35%, ${shineColor} 50%, ${color} 65%, ${color} 100%)`;
+                el.style.backgroundSize = '200% auto';
+                el.style.webkitBackgroundClip = 'text';
+                el.style.backgroundClip = 'text';
+                el.style.webkitTextFillColor = 'transparent';
+
+                const startPos = direction === 'left' ? '150% center' : '-50% center';
+                const endPos = direction === 'left' ? '-50% center' : '150% center';
+
+                gsap.fromTo(el, 
+                    { backgroundPosition: startPos },
+                    { backgroundPosition: endPos, duration: speed, ease: "none", repeat: -1, yoyo: yoyo, repeatDelay: delay }
+                );
+            }
+
+            initShinyText('sidebar-shiny-text', {
+                text: "SOLAR-SOLUTIONS", speed: 2, color: "#1E293B", shineColor: "#4cc9f0", spread: 120, direction: "left"
+            });
+
+            initShinyText('header-shiny-text', {
+                text: "SOLAR-SOLUTIONS INDIA", speed: 2, color: "#1E293B", shineColor: "#4cc9f0", spread: 120, direction: "left"
+            });
+
+            initShinyText('home-shiny-text', {
+                text: "SOLAR-SOLUTIONS INDIA", speed: 2, color: "#1E293B", shineColor: "#4361ee", spread: 120, direction: "left"
+            });
+
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#home',
+                    start: '15% top', 
+                    end: '30% top',   
+                    scrub: true
+                }
+            })
+            .to('#home-shiny-text', { opacity: 0, ease: "none" }, 0)
+            .to('#header-shiny-text', { opacity: 1, ease: "none" }, 0);
+
+            const counters = document.querySelectorAll('.stat-counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                gsap.fromTo(counter,
+                    { innerHTML: 0 },
+                    {
+                        innerHTML: target,
+                        duration: 2.5,
+                        ease: "power2.out",
+                        snap: { innerHTML: 1 },
+                        scrollTrigger: {
+                            trigger: counter,
+                            start: "top bottom-=10%",
+                            once: true
+                        },
+                        onUpdate: function() {
+                            counter.innerHTML = Math.floor(this.targets()[0].innerHTML) + '+';
+                        }
+                    }
+                );
+            });
+
+            const stackCards = document.querySelectorAll('.stack-card');
+            const baseTopVH = 15; 
+            const offsetPx = 15;  
+            let ticking = false;
+
+            const updateStackCards = () => {
+                const viewportHeight = window.innerHeight;
+
+                stackCards.forEach((card, i) => {
+                    let totalOverlap = 0;
+
+                    for (let j = i + 1; j < stackCards.length; j++) {
+                        const nextCard = stackCards[j];
+                        const nextRect = nextCard.getBoundingClientRect();
+                        
+                        const nextStickyTop = (viewportHeight * (baseTopVH / 100)) + (j * offsetPx);
+                        const distanceToSticky = nextRect.top - nextStickyTop;
+                        const travelDistance = viewportHeight - nextStickyTop;
+
+                        if (distanceToSticky < travelDistance && distanceToSticky > 0) {
+                            const progress = 1 - (distanceToSticky / travelDistance);
+                            totalOverlap += progress;
+                        } else if (distanceToSticky <= 0) {
+                            totalOverlap += 1;
+                        }
+                    }
+
+                    const scale = 1 - (totalOverlap * 0.04);
+                    const brightness = 1 - (totalOverlap * 0.10);
+                    const clampedBrightness = Math.max(0.5, brightness);
+
+                    card.style.transform = `scale(${scale})`;
+                    card.style.filter = `brightness(${clampedBrightness})`;
+                });
+            };
+
+            lenis.on('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateStackCards();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            window.addEventListener('resize', updateStackCards);
+            updateStackCards(); 
+
+            gsap.fromTo('.career-anim-element', 
+                { opacity: 0, y: 30 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.8, 
+                    stagger: 0.15, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: '#careers',
+                        start: 'top 75%'
+                    }
+                }
+            );
+
+            gsap.fromTo(document.querySelectorAll('#career-heading .blur-text-segment'), 
+                { filter: 'blur(10px)', opacity: 0, y: 20 },
+                { 
+                    filter: 'blur(0px)', opacity: 1, y: 0, 
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: '#career-heading',
+                        start: 'top 85%',
+                        end: 'bottom 50%',
+                        scrub: true 
+                    }
+                }
+            );
+
+            const sfContainer = document.getElementById('scroll-float-container');
+            const sfTextElement = document.getElementById('scroll-float-text');
+            const sfText = sfTextElement.textContent;
+            sfTextElement.textContent = '';
+            sfText.split('').forEach(char => {
+                const span = document.createElement('span'); span.className = 'char'; span.textContent = char === ' ' ? '\u00A0' : char;
+                sfTextElement.appendChild(span);
+            });
+            gsap.fromTo(sfContainer.querySelectorAll('.char'),
+                { opacity: 0, yPercent: 120, scaleY: 2.3, scaleX: 0.7 },
+                { duration: 1, ease: 'back.inOut(2)', opacity: 1, yPercent: 0, scaleY: 1, scaleX: 1, stagger: 0.03, 
+                  scrollTrigger: { trigger: sfContainer, start: 'top bottom', end: 'bottom center', scrub: true }
+                }
+            );
+
+            function initBlurTextEveryTime(id, text) {
+                const container = document.getElementById(id);
+                if(!container) return;
+                
+                const words = text.split(' ');
+                container.innerHTML = ''; 
+                
+                words.forEach(word => {
+                    const span = document.createElement('span'); 
+                    span.className = 'blur-text-segment';
+                    span.textContent = word + ' ';
+                    container.appendChild(span);
+                });
+
+                gsap.fromTo(container.querySelectorAll('.blur-text-segment'), 
+                    { filter: 'blur(10px)', opacity: 0, y: 20 },
+                    { 
+                        filter: 'blur(0px)', opacity: 1, y: 0, 
+                        stagger: 0.05,
+                        scrollTrigger: {
+                            trigger: container,
+                            start: 'top 85%',
+                            end: 'bottom 50%',
+                            scrub: true 
+                        }
+                    }
+                );
+            }
+            
+            initBlurTextEveryTime('every-time-blur-target', "Our FDRE solutions pave the way for a resilient, low-carbon future.");
+
+            function createCarousel(trackId, indicatorsId, dataArray) {
+                const track = document.getElementById(trackId);
+                const indicatorsContainer = document.getElementById(indicatorsId);
+                
+                let containerWidth = track.parentElement.offsetWidth;
+                let itemWidth = Math.min(containerWidth - 32, 400); 
+                let gap = 24; 
+                let trackItemOffset = itemWidth + gap; 
+                let currentPosition = 0;
+                
+                let isDragging = false;
+                let startX = 0;
+                let dragStartX = 0;
+
+                dataArray.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'carousel-item';
+                    
+                    card.innerHTML = `
+                        <div class="w-full relative shrink-0 border-b border-border-light" style="height: ${itemWidth * 0.6}px;">
+                            <img src="${item.img}" class="w-full h-full object-cover opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105">
+                            <div class="absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 bg-vivid-royal rounded-full flex items-center justify-center text-white shadow-md">
+                                <i class="ph-bold ${item.icon} text-lg md:text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="p-5 md:p-6 flex flex-col justify-between flex-1 w-full bg-white">
+                            <div>
+                                <h3 class="text-lg md:text-xl font-black text-dark-text mb-2 leading-tight">${item.title}</h3>
+                                <p class="text-[10px] md:text-xs text-slate-600 mb-6 leading-relaxed line-clamp-3 font-medium">${item.desc}</p>
+                            </div>
+                            <button onclick="openContactModal('I want details about ${item.title} from Solar-Solutions')" class="w-full py-3 bg-vivid-royal/10 backdrop-blur-md border border-vivid-royal/30 text-vivid-royal font-bold text-[9px] md:text-[10px] uppercase tracking-widest rounded-lg hover:bg-vivid-royal hover:text-white transition-all z-10 relative cursor-pointer shadow-sm hover:shadow-md">Contact Us</button>
+                        </div>
+                    `;
+                    track.appendChild(card);
+
+                    const dot = document.createElement('div');
+                    dot.className = `carousel-indicator ${index === 0 ? 'active' : 'inactive'}`;
+                    dot.addEventListener('click', (e) => {
+                        currentPosition = index;
+                        animateToCurrentPosition();
+                    });
+                    indicatorsContainer.appendChild(dot);
+                });
+
+                const itemsDOM = track.querySelectorAll('.carousel-item');
+                const indicatorsDOM = indicatorsContainer.querySelectorAll('.carousel-indicator');
+
+                function updateSizing() {
+                    containerWidth = track.parentElement.offsetWidth;
+                    itemWidth = Math.min(containerWidth - 32, 400); 
+                    trackItemOffset = itemWidth + gap;
+
+                    itemsDOM.forEach(item => {
+                        item.style.width = `${itemWidth}px`;
+                        const imgContainer = item.firstElementChild;
+                        if(imgContainer) imgContainer.style.height = `${itemWidth * 0.6}px`;
+                    });
+                }
+
+                function updateRotations(trackX) {
+                    gsap.set(track, {
+                        perspective: 1200,
+                        perspectiveOrigin: `${-trackX + (itemWidth / 2)}px 50%`
+                    });
+
+                    itemsDOM.forEach((item, i) => {
+                        let diff = trackX + (i * trackItemOffset);
+                        let ratio = diff / trackItemOffset;
+                        let rotateY = ratio * -90; 
+                        gsap.set(item, { rotateY: rotateY });
+                    });
+                }
+
+                function animateToCurrentPosition() {
+                    currentPosition = Math.max(0, Math.min(currentPosition, dataArray.length - 1));
+                    const targetX = -currentPosition * trackItemOffset;
+
+                    gsap.to(track, {
+                        x: targetX,
+                        duration: 0.6,
+                        ease: "power3.out", 
+                        onUpdate: function() {
+                            updateRotations(gsap.getProperty(track, "x"));
+                        }
+                    });
+
+                    indicatorsDOM.forEach((ind, i) => {
+                        if (i === currentPosition) {
+                            ind.className = 'carousel-indicator active';
+                            gsap.to(ind, { scale: 1.2, duration: 0.2 });
+                        } else {
+                            ind.className = 'carousel-indicator inactive';
+                            gsap.to(ind, { scale: 1, duration: 0.2 });
+                        }
+                    });
+                }
+                
+                updateSizing();
+                gsap.set(track, { x: 0 });
+                updateRotations(0);
+                animateToCurrentPosition();
+
+                window.addEventListener('resize', () => {
+                    updateSizing();
+                    animateToCurrentPosition();
+                });
+
+                track.addEventListener('pointerdown', (e) => {
+                    if(e.target.tagName === 'BUTTON' || e.target.closest('button')) return; 
+                    isDragging = true;
+                    startX = e.clientX;
+                    dragStartX = gsap.getProperty(track, "x");
+                    gsap.killTweensOf(track); 
+                    track.style.cursor = 'grabbing';
+                    track.setPointerCapture(e.pointerId);
+                });
+
+                track.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    let deltaX = e.clientX - startX;
+                    let newX = dragStartX + deltaX;
+
+                    const minX = -(dataArray.length - 1) * trackItemOffset;
+                    const maxX = 0;
+                    
+                    if (newX > maxX) {
+                        newX = maxX + (newX - maxX) * 0.15; 
+                    } else if (newX < minX) {
+                        newX = minX + (newX - minX) * 0.15;
+                    }
+
+                    gsap.set(track, { x: newX });
+                    updateRotations(newX); 
+                });
+
+                const endDrag = (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    track.style.cursor = 'grab';
+                    track.releasePointerCapture(e.pointerId);
+
+                    let deltaX = e.clientX - startX;
+                    
+                    if (deltaX < -40) {
+                        currentPosition++;
+                    } else if (deltaX > 40) {
+                        currentPosition--;
+                    }
+
+                    animateToCurrentPosition();
+                };
+
+                track.addEventListener('pointerup', endDrag);
+                track.addEventListener('pointercancel', endDrag);
+            }
+
+            const PRODUCTS = [
+                { title: 'Wind Energy', desc: 'Robust wind turbine systems for off-grid and hybrid solutions perfectly engineered for India.', icon: 'ph-wind', img: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1000&auto=format&fit=crop' },
+                { title: 'EV Charger', desc: 'Fast, smart, and safe charging solutions for electric vehicles. Build for rapid urban deployment.', icon: 'ph-charging-station', img: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1000&auto=format&fit=crop' },
+                { title: 'Solar Modules', desc: 'High-efficiency monocrystalline and polycrystalline panels built to withstand extreme temperatures.', icon: 'ph-sun', img: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1000&auto=format&fit=crop' },
+                { title: 'Solar Pumps', desc: 'Agricultural grade solar pumps highly suited for PM-KUSUM integration in rural sectors.', icon: 'ph-drop', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDvO_NBcVBOXWTpLaepojkt2HjyrOGF9G9KiANeFzjr4VmS2LlT7DBElW2&s=10' }
+            ];
+
+            setTimeout(() => {
+                createCarousel('prod-track', 'indicators', PRODUCTS);
+            }, 100);
+
+            const billSlider = document.getElementById('billSlider');
+            const billValueDisplay = document.getElementById('billValueDisplay');
+            const systemSize = document.getElementById('systemSize');
+            const yearlySavings = document.getElementById('yearlySavings');
+
+            function calculateSavings() {
+                const bill = parseInt(billSlider.value);
+                billValueDisplay.textContent = '₹' + bill.toLocaleString('en-IN');
+                const kwRequired = Math.max(1, Math.round(bill / 1000));
+                const savingsPerYear = Math.round(bill * 12 * 0.8); 
+                systemSize.textContent = kwRequired + ' kW';
+                yearlySavings.textContent = '₹ ' + savingsPerYear.toLocaleString('en-IN');
+            }
+            billSlider.addEventListener('input', calculateSavings);
+            calculateSavings();
+        });
+
+    </script>
+</body>
+</html>
